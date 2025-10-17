@@ -20,7 +20,7 @@ namespace ViewController.Player
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.transform.name == "Enemy")
+            if (other.transform.name.StartsWith("Enemy"))
             {
                 GameUI.instance._gamePass.SetActive(true);
                 other.gameObject.SetActive(false);

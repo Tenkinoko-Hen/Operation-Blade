@@ -4,7 +4,6 @@ namespace ViewController.Enemy
 {
     public class Enemy : MonoBehaviour
     {
-        public Player.Player _player;
         public EnemyBullet _enemyBullet;
         public enum States
         {
@@ -33,9 +32,12 @@ namespace ViewController.Enemy
                     _currentSeconds = 0f;
                 }
 
-                var directionToPlayer = (_player.transform.position - this.transform.position).normalized;
-                this.transform.Translate(directionToPlayer*Time.deltaTime);            
-                _currentSeconds += Time.deltaTime;
+                if (Global._Player)
+                {
+                    var directionToPlayer = (Global._Player.transform.position - this.transform.position).normalized;
+                    this.transform.Translate(directionToPlayer*Time.deltaTime);            
+                    _currentSeconds += Time.deltaTime;
+                }
 
             }
             else if(_state == States.Shoot)
@@ -51,12 +53,16 @@ namespace ViewController.Enemy
 
                 if (Time.frameCount % 20 == 0)
                 {
-                    var directionToPlayer = (_player.transform.position - this.transform.position).normalized;
+                    if (Global._Player)
+                    {
+                        var directionToPlayer = (Global._Player.transform.position - this.transform.position).normalized;
                     
-                    var enemyBullet = Instantiate(_enemyBullet);
-                    enemyBullet.transform.position = this.transform.position;
-                    enemyBullet._dirction = directionToPlayer;
-                    enemyBullet.gameObject.SetActive(true);
+                        var enemyBullet = Instantiate(_enemyBullet);
+                        enemyBullet.transform.position = this.transform.position;
+                        enemyBullet._dirction = directionToPlayer;
+                        enemyBullet.gameObject.SetActive(true);
+                    }
+                   
                 }
             }
         }

@@ -18,7 +18,7 @@ namespace ViewController.Enemy
         }
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.transform.name == "Player")
+            if (other.transform.name.StartsWith("Player"))
             {
                 GameUI.instance._gameOver.SetActive(true);
                 other.gameObject.SetActive(false);
